@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RacikCepat</title>
+  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="styles/footer.css">
+  <link rel="stylesheet" href="styles/hamburger.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo-container">
+        <img src="images/logo.png" alt="Logo RacikCepat" class="logo">
+        <h1>RacikCepat</h1>
+      </div>
+      
+      <!-- Desktop Navigation -->
+      <nav class="nav-desktop">
+        <a href="#/">Beranda</a>
+        <a href="#/eksplorasi">Eksplorasi</a>
+        <a href="#/rekomendasi">Rekomendasi</a>
+        <a href="#/resep">Resep</a>
+        <a href="#/tersimpan" title="Tersimpan">
+          <i class="fas fa-bookmark"></i>
+        </a>
+        <a href="#/profil" title="Profil">
+          <i class="fas fa-user"></i>
+        </a>
+      </nav>
+
+      <!-- Hamburger Button -->
+      <button class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav class="nav-mobile" id="navMobile">
+      <a href="#/" onclick="closeMenu()">
+        <i class="fas fa-home"></i>
+        Beranda
+      </a>
+      <a href="#/eksplorasi" onclick="closeMenu()">
+        <i class="fas fa-compass"></i>
+        Eksplorasi
+      </a>
+      <a href="#/rekomendasi" onclick="closeMenu()">
+        <i class="fas fa-star"></i>
+        Rekomendasi
+      </a>
+      <a href="#/resep" onclick="closeMenu()">
+        <i class="fas fa-utensils"></i>
+        Resep
+      </a>
+      <a href="#/tersimpan" onclick="closeMenu()">
+        <i class="fas fa-bookmark"></i>
+        Tersimpan
+      </a>
+      <a href="#/profil" onclick="closeMenu()">
+        <i class="fas fa-user"></i>
+        Profil
+      </a>
+    </nav>
+  </header>
+
+  <main id="app">
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-left">
+        <div class="footer-logo">
+          <img src="images/icon-footer.png" alt="RacikCepat Logo" class="footer-icon">
+          <div class="footer-text">
+            <h3>RacikCepat</h3>
+            <p>Resep Lezat Kilat Dari Isi Dapurmu</p>
+            <small>CC25-CF298, 2025.</small>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-right">
+        <div class="footer-links">
+          <div class="footer-column">
+            <a href="#/cari-resep">Cari Resep Sesuai Bahan</a>
+            <a href="#/proses-benih">Proses Benih Selesai Bahan</a>
+            <a href="#/persiapan-premium">Berlangganan Premium Scanner</a>
+            <a href="#/rekomendasi-resep">Rekomendasi Resep</a>
+          </div>
+          <div class="footer-column">
+            <a href="#/layanan">Layanan Pengguna</a>
+            <a href="#/tentang">Tentang RacikCepat</a>
+            <a href="#/bantuan">Bantuan Pelanggan</a>
+          </div>
+        </div>
+        
+        <<div class="footer-social">
+  <a href="https://instagram.com/racikcepat" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-instagram"></i>
+  </a>
+  <a href="tel:+628123456789" class="social-icon" aria-label="Phone">
+    <i class="fas fa-phone"></i>
+  </a>
+  <a href="https://racikcepat.com" class="social-icon" aria-label="Globe" target="_blank" rel="noopener noreferrer">
+    <i class="fas fa-globe"></i>
+  </a>
+  <a href="https://facebook.com/racikcepat" class="social-icon" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-facebook"></i>
+  </a>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>Copyright 2025, RacikCepat Developer. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="./app.js"></script>
+  <script src="pages/hamburger.js"></script>
+</body>
+</html>

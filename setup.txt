@@ -1,0 +1,35 @@
+# Panduan Menjalankan Recipe App
+
+## Persiapan Backend
+1. **Setup VS Code dan Terminal**
+   - Buka VS Code
+   - Buka terminal di VS Code
+   - Pastikan terminal sudah mengarah ke folder yang benar
+   - Jika belum, jalankan perintah: `cd recipe-app-backend`
+
+2. **Install Dependencies**
+   - Jalankan perintah: `npm install`
+   - Tunggu hingga proses instalasi selesai
+
+3. **Menjalankan Server**
+   - Jalankan perintah: `npm start` atau `node server.js`
+   - Tunggu hingga muncul pesan "MongoDB connected" di terminal
+
+## Persiapan Frontend
+
+4. **Setup Live Server**
+   - Pastikan extension Live Server sudah terinstall di VS Code
+   - Jika belum, download dan install extension Live Server
+
+5. **Menjalankan Frontend**
+   - Buka file `index.html`
+   - Klik kanan pada file tersebut
+   - Pilih "Open with Live Server"
+
+## Testing
+
+6. **Mulai Testing**
+   - Setelah kedua server berjalan (backend dan frontend), aplikasi siap untuk ditest
+   - Pastikan kedua server tetap berjalan selama proses testing
+
+**Catatan:** Pastikan MongoDB sudah terinstall dan berjalan di sistem Anda sebelum memulai langkah-langkah di atas.
