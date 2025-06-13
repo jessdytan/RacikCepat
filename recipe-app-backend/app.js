@@ -17,7 +17,6 @@ app.get('/', (req, res) => {
 });
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'src')));
 app.use('/uploads', express.static('uploads'));
 const exploreRoutes = require('./routes/exploreRoutes');
 app.use('/api/explore', exploreRoutes);
