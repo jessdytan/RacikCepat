@@ -5,6 +5,6 @@ const recommendationController = require("../controllers/recommendationControlle
 // @route   GET /api/recommendations/:id
 // @desc    Get recipe details by ID
 // @access  Public
-router.get("/:id", recommendationController.getRecipeDetails);
+router.post('/', recommendationController.getResepByRecommendations);
 
 module.exports = router;

@@ -1,20 +1,21 @@
 const Recipe = require('../models/Recipe');
 
-exports.getRecipeDetails = async (req, res) => {
+exports.getResepByRecommendations = async (req, res) => {
   try {
-    const recipe = await Recipe.findById(req.params.id)
-      .populate('author', 'username');
-      
-    if (!recipe) {
-      return res.status(404).json({ msg: 'Recipe not found' });
+    const { recommendations } = req.body;
+
+    if (!Array.isArray(recommendations)) {
+      return res.status(400).json({ message: 'Recommendations harus berupa array.' });
     }
-      
-    res.json(recipe);
-  } catch (err) {
-    console.error(err.message);
-    if (err.kind === 'ObjectId') {
-      return res.status(404).json({ msg: 'Recipe not found' });
-    }
-    res.status(500).send('Server Error');
+
+    // Cari semua resep yang judulnya cocok persis
+    const resepList = await Recipe.find({
+      judul: { $in: recommendations }
+    });
+
+    res.json(resepList);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'Gagal mengambil resep.' });
   }
 };

@@ -20,7 +20,7 @@ header {
   box-shadow: 0 4px 20px rgba(255, 107, 61, 0.3);
   position: sticky;
   top: 0;
-  z-index: 9998 !important; 
+  z-index: 1000 !important; 
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   background-clip: padding-box;
@@ -1777,6 +1777,97 @@ nav a[title] {
   position: relative;
   animation: modalSlideIn 0.3s ease-out;
 }
+
+.upload-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px; 
+  overflow-y: auto; 
+}
+
+.extract-result {
+  margin-top: 1.5rem;
+  padding: 1rem 1.5rem;
+  background: #fffaf5;
+  border: 1px solid #ffe3d0;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(255, 107, 61, 0.1);
+}
+
+.extract-result h4 {
+  color: #fe7743;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.extracted-ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.extracted-item {
+  display: flex;
+  align-items: center;
+  background: #fff0e9;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+  gap: 0.75rem;
+}
+
+.extracted-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #fe7743;
+  color: white;
+  cursor: pointer;
+}
+
+.extract-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+
+.extract-actions button {
+  padding: 0.5rem 1.25rem;
+  font-size: 15px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.use-btn {
+  background-color: #fe7743;
+  color: white;
+}
+
+.use-btn:hover {
+  background-color: #f25c1f;
+}
+
+.preview-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 @keyframes modalSlideIn {
   from {
     opacity: 0;
@@ -2242,7 +2333,7 @@ nav a[title] {
   border-radius: 10px;
   color: white;
   font-weight: 600;
-  z-index: 1000;
+  z-index: 100000;
   animation: slideIn 0s ease;
   max-width: 300px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -2331,7 +2422,7 @@ nav a[title] {
   display: none;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 10001 !important;
 }
 .modal-content {
   background: white;
@@ -2341,6 +2432,7 @@ nav a[title] {
   max-height: 95vh;
   overflow-y: auto;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  z-index: 10001;
 }
 .modal-header {
   padding: 20px;

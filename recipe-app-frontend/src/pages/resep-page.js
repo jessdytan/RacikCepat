@@ -273,7 +273,7 @@ const ResepPage = {
     });
     tambahLangkahBtn.addEventListener('click', () => {
       const currentSteps = daftarLangkah.querySelectorAll('.list-item').length;
-      const stepNumber = currentSteps + 1;
+      const stepNumber = currentSteps;
       const item = document.createElement('div');
       item.className = 'list-item';
       item.innerHTML = `
@@ -282,11 +282,13 @@ const ResepPage = {
         <button type="button" class="remove-btn">×</button>
       `;
       daftarLangkah.appendChild(item);
+      updateStepNumbers();
     });
     const updateStepNumbers = () => {
-      const stepNumbers = daftarLangkah.querySelectorAll('.step-number');
-      stepNumbers.forEach((stepNumber, index) => {
-        stepNumber.textContent = index + 1;
+      const stepItems = daftarLangkah.querySelectorAll('.list-item');
+      stepItems.forEach((item, index) => {
+        const numberSpan = item.querySelector('.step-number');
+        if (numberSpan) numberSpan.textContent = index + 1;
       });
     };
     grupBahan.addEventListener('click', (e) => {
@@ -406,9 +408,14 @@ const ResepPage = {
       }
     });
   },
+  
   async fetchMyRecipes() {
     try {
-      const response = await fetch('http://localhost:5001/api/recipes');
+      const user = JSON.parse(localStorage.getItem("currentUser"));
+      const username = user?.username || '';
+
+      const response = await fetch(`http://localhost:5001/api/recipes?penulis=${encodeURIComponent(username)}`);
+      // const response = await fetch(`http://localhost:5001/api/recipes?penulis=${encodeURIComponent(this.current.username)}`);
       if (!response.ok) throw new Error('Gagal mengambil data resep');
       return await response.json();
     } catch (err) {
@@ -416,6 +423,7 @@ const ResepPage = {
       return [];
     }
   },
+
   async fetchRecipeDetail(id) {
     try {
       const response = await fetch(`http://localhost:5001/api/recipes/${id}`);

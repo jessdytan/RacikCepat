@@ -23,52 +23,69 @@ const RekomendasiPage = {
   afterRender() {
     this.cleanup();
 
-    const searchResult = JSON.parse(sessionStorage.getItem('searchResult') || '{}');
+    const searchResultData = JSON.parse(sessionStorage.getItem('searchResult') || '[]'); 
+
     const hasilResepContainer = document.getElementById('hasilResep');
-    if (!hasilResepContainer) return;
-
-    hasilResepContainer.innerHTML = '';
-
-    if (!searchResult || !searchResult.recipes || searchResult.recipes.length === 0) {
-      hasilResepContainer.innerHTML = '<p>Tidak ditemukan resep dengan bahan tersebut.</p>';
-    } else {
-      const heading = document.createElement('h3');
-      heading.textContent = searchResult.type === 'full'
-        ? 'Resep yang cocok dengan semua bahan:'
-        : 'Rekomendasi resep yang mengandung sebagian bahan:';
-      hasilResepContainer.appendChild(heading);
-
-      searchResult.recipes.forEach(resep => {
-        const matched = resep.matchedIngredients
-          ? `<p>Bahan cocok: ${resep.matchedIngredients.join(', ')}</p>` : '';
-
-        const card = document.createElement('div');
-        card.className = 'resep-card';
-        const resepId = resep.id || resep._id;
-
-        card.innerHTML = `
-          <img src="${resep.foto || resep.gambar || ''}" alt="${resep.judul || resep.nama}">
-          <h3>${resep.judul || resep.nama}</h3>
-          <p>Penulis: ${resep.penulis || '-'}</p>
-          <p>Porsi: ${resep.porsi || '-'}</p>
-          <p>Durasi: ${resep.durasi || resep.waktu || '-'}</p>
-          ${matched}
-          <div class="btn-group">
-            <button class="btn-detail" data-id="${resepId}">Lihat Selengkapnya →</button>
-            <button class="btn-bookmark" data-id="${resepId}" aria-label="Simpan Resep">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="orange" viewBox="0 0 24 24" width="24" height="24">
-                <path d="M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18l-7-5-7 5V4z"/>
-              </svg>
-            </button>
-          </div>
-        `;
-        hasilResepContainer.appendChild(card);
-      });
-
-      this.setupEventListeners(searchResult);
+    if (!hasilResepContainer) {
+        console.error('Elemen #hasilResep tidak ditemukan di DOM!');
+        return;
     }
 
-    this.setupModalEvents();
+    hasilResepContainer.innerHTML = ''; 
+
+    // 2. Cek apakah searchResultData adalah array dan tidak kosong
+    if (!Array.isArray(searchResultData) || searchResultData.length === 0) {
+        hasilResepContainer.innerHTML = '<p>Tidak ditemukan resep dengan bahan tersebut.</p>';
+        console.log('Tidak ada resep atau format data tidak sesuai (bukan array atau array kosong).');
+    } else {
+        const heading = document.createElement('h3');
+        heading.textContent = 'Rekomendasi Resep Ditemukan:'; 
+
+        hasilResepContainer.appendChild(heading);
+
+        searchResultData.forEach(resep => { 
+            if (!resep) {
+                console.warn('Ada item resep yang undefined atau null di array resep.');
+                return;
+            }
+
+            const matched = resep.matchedIngredients
+                ? `<p>Bahan cocok: ${resep.matchedIngredients.join(', ')}</p>` 
+                : ''; 
+
+            const card = document.createElement('div');
+            card.className = 'resep-card';
+            const resepId = resep.id || resep._id; 
+
+            const imageUrl = resep.foto || resep.gambar || '';
+            const title = resep.judul || resep.nama || 'Resep Tanpa Judul';
+            const author = resep.penulis || '-';
+            const servings = resep.porsi || '-';
+            const duration = resep.durasi || resep.waktu || '-';
+
+            card.innerHTML = `
+                <img src="${imageUrl}" alt="${title}">
+                <h3>${title}</h3>
+                <p>Penulis: ${author}</p>
+                <p>Porsi: ${servings}</p>
+                <p>Durasi: ${duration}</p>
+                ${matched}
+                <div class="btn-group">
+                    <button class="btn-detail" data-id="${resepId}">Lihat Selengkapnya →</button>
+                    <button class="btn-bookmark" data-id="${resepId}" aria-label="Simpan Resep">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="orange" viewBox="0 0 24 24" width="24" height="24">
+                            <path d="M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18l-7-5-7 5V4z"/>
+                        </svg>
+                    </button>
+                </div>
+            `;
+            hasilResepContainer.appendChild(card);
+        });
+
+        this.setupEventListeners(searchResultData); 
+    }
+
+    this.setupModalEvents(); 
   },
 
   setupEventListeners(searchResult) {

@@ -32,14 +32,24 @@ exports.createRecipe = async (req, res) => {
     res.status(500).json({ message: 'Failed to create recipe', error: error.message });
   }
 };
-exports.getAllRecipes = async (req, res) => {
+
+exports.getRecipes = async (req, res) => {
   try {
-    const recipes = await Recipe.find().sort({ createdAt: -1 });
+    const { penulis } = req.query;
+
+    const filter = {};
+    if (penulis) {
+      filter.penulis = penulis;
+    }
+
+    const recipes = await Recipe.find(filter).sort({ createdAt: -1 });
     res.json(recipes);
   } catch (error) {
     res.status(500).json({ message: 'Gagal mengambil data resep', error: error.message });
   }
 };
+
+
 exports.deleteRecipe = async (req, res) => {
   try {
     const { id } = req.params;
@@ -98,5 +108,62 @@ exports.getRecipeDetail = async (req, res) => {
     res.json(recipe);
   } catch (error) {
     res.status(500).json({ message: 'Gagal mengambil detail resep', error: error.message });
+  }
+};
+
+exports.getMyRecipes = async (req, res) => {
+  try {
+    const { penulis } = req.query;
+
+    if (!penulis) {
+      return res.status(400).json({ message: 'Parameter penulis diperlukan.' });
+    }
+
+    const myRecipes = await Recipe.find({ penulis }).sort({ createdAt: -1 });
+
+    res.json(myRecipes);
+  } catch (error) {
+    res.status(500).json({ message: 'Gagal mengambil resep saya', error: error.message });
+  }
+};
+
+exports.updateRecipe = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      judul,
+      foto,
+      penulis,
+      porsi,
+      bahan,
+      langkah,
+      durasi,
+      url,
+      tag
+    } = req.body;
+
+    const updated = await Recipe.findByIdAndUpdate(
+      id,
+      {
+        judul,
+        foto,
+        penulis,
+        porsi,
+        bahan,
+        langkah,
+        durasi,
+        url,
+        tag
+      },
+      { new: true }
+    );
+
+    if (!updated) {
+      return res.status(404).json({ message: 'Resep tidak ditemukan' });
+    }
+
+    res.json({ message: 'Resep berhasil diperbarui', recipe: updated });
+  } catch (error) {
+    res.status(500).json({ message: 'Gagal memperbarui resep', error: error.message });
   }
 };
