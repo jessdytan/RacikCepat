@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "servers.js",
   "scripts": {
-    "start": "nodemon servers.js"
+    "start": "node servers.js",
+		"vercel-build": "echo build"
   },
   "keywords": [],
   "author": "",
