@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "projects": [
+    {
+      "name": "recipe-app-backend",
+      "root": "recipe-app-backend",
+      "builds": [
+        {
+          "src": "servers.js", 
+          "use": "@vercel/node"
+        }
+      ]
+    },
+    {
+      "name": "recipe-app-frontend",
+      "root": "recipe-app-frontend",
+      "builds": [
+        {
+          "src": "package.json",
+          "use": "@vercel/static-build",
+          "config": {
+            "distDir": "build" 
+          }
+        }
+      ]
+    }
+  ]
+}
